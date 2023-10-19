@@ -29,15 +29,14 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+_G.intervall = 0 -- interval between quests
 
 -- Pizza guy tab
 local function spamPizza()
-	
-	_G.loop = true
+	_G.loop = true -- loop
 	
 	while _G.loop do
-	-- teleport to pizzaman
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-381.2453, 449.975342, 70.2700043, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-381.2453, 449.975342, 70.2700043, 0, 0, -1, 0, 1, 0, 1, 0, 0) -- teleport to pizzaman
 	wait(0.3)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-381.2453, 449.975342, 70.2700043, 0, 0, -1, 0, 1, 0, 1, 0, 0)
 	wait(0.3)
@@ -47,22 +46,14 @@ local function spamPizza()
 	wait(0.3)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-381.2453, 449.975342, 70.2700043, 0, 0, -1, 0, 1, 0, 1, 0, 0)
 	wait(0.5)
-	
-	-- accept quest
-	game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game) -- click E
+	game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game) -- accept quest / click E
 	wait(1)
-	
-	-- variables
-	local sssposition = game:GetService("Players").LocalPlayer.PlayerGui.dialogGUI.f.sf.option.AbsolutePosition
+	local sssposition = game:GetService("Players").LocalPlayer.PlayerGui.dialogGUI.f.sf.option.AbsolutePosition -- variables
 	local vim = game.VirtualInputManager
-	
 	vim:SendMouseButtonEvent(sssposition.X+50,sssposition.Y+70,0,true,game,0) -- click okay
 	vim:SendMouseButtonEvent(sssposition.X+50,sssposition.Y+70,0,false,game,0)
-	
 	wait(1)
-	
-	-- go to locations
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-569.612732, 449.525299, -662.662109, 0.992915452, -3.08223989e-08, 0.118822969, 2.01627923e-08, 1, 9.09121596e-08, -0.118822969, -8.78722872e-08, 0.992915452)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-569.612732, 449.525299, -662.662109, 0.992915452, -3.08223989e-08, 0.118822969, 2.01627923e-08, 1, 9.09121596e-08, -0.118822969, -8.78722872e-08, 0.992915452) -- go to locations
 	wait(0.3)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-263.920532, 459.397522, -949.331421, 0.988396823, -4.89388547e-08, 0.15189369, 3.38532793e-08, 1, 1.01902721e-07, -0.15189369, -9.55782298e-08, 0.988396823)
 	wait(0.3)
@@ -75,15 +66,15 @@ local function spamPizza()
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5.79220629, 449.525269, -893.760742, 0.657709777, 8.57271729e-08, -0.753271461, -9.43385814e-08, 1, 3.14359028e-08, 0.753271461, 5.03868591e-08, 0.657709777)
 	wait(0.3)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-447.196106, 449.525269, -776.301941, -0.632561564, -2.5018295e-08, 0.774510086, 7.41495469e-08, 1, 9.28618675e-08, -0.774510086, 1.16170419e-07, -0.632561564)
-	wait(2)
-	
+	wait(_G.intervall) -- intervals between quests
 	end
 end
 
+------------ // PIZZA TAB \\ ------------
 local PizzaTab = Window:CreateTab("Pizza Guy", 4483362458) -- Title, Image
 
+-- Toggle auto pizza section
 local PizzaToggleSection = PizzaTab:CreateSection("Toggle Auto Quest")
-
 local Toggle = PizzaTab:CreateToggle({
    Name = "Toggle Pizza Guy Quest",
    CurrentValue = false,
@@ -98,12 +89,25 @@ local Toggle = PizzaTab:CreateToggle({
    if Value == false then
 			_G.loop = false
    end
-   
    end,
 })
 
-local PizzaSection = PizzaTab:CreateSection("Pizza Guy")
+local PizzaToggleSlider = PizzaTab:CreateSlider({
+   Name = "Intervals between quests",
+   Range = {1, 10},
+   Increment = 1,
+   Suffix = "seconds",
+   CurrentValue = 3,
+   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(sliderValue)
+   _G.intervall = sliderValue
+   -- The function that takes place when the slider changes
+   -- The variable (Value) is a number which correlates to the value the slider is currently at
+   end,
+})
 
+-- TP section
+local PizzaSection = PizzaTab:CreateSection("Pizza Guy")
 local TP = PizzaTab:CreateButton({
    Name = "TP to pizza guy",
    Callback = function()
@@ -113,7 +117,6 @@ local TP = PizzaTab:CreateButton({
 })
 
 local PizzaLocationSection = PizzaTab:CreateSection("Location")
-
 local TPloc = PizzaTab:CreateButton({
    Name = "TP to first location",
    Callback = function()
@@ -169,9 +172,13 @@ local TPlocseven = PizzaTab:CreateButton({
    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-447.196106, 449.525269, -776.301941, -0.632561564, -2.5018295e-08, 0.774510086, 7.41495469e-08, 1, 9.28618675e-08, -0.774510086, 1.16170419e-07, -0.632561564)
    end,
 })
+----------------------------------------
 
--- Misc tab
+
+------------ // MISC TAB \\ ------------
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
+
+-- Misc section
 local PizzaSection = MiscTab:CreateSection("Misc")
 
 local DarkDex = MiscTab:CreateButton({
@@ -190,13 +197,11 @@ local RemoteSpy = MiscTab:CreateButton({
    end,
 })
 
-
 local printCframe = MiscTab:CreateButton({
    Name = "Copy player's current CFrame",
    Callback = function()
    -- The function that takes place when the button is pressed
    print(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
-   setclipboard(print(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame))
    end,
 })
 
@@ -207,3 +212,4 @@ local Destroy = MiscTab:CreateButton({
    Rayfield:Destroy()
    end,
 })
+----------------------------------------
