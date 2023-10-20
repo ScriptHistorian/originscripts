@@ -194,7 +194,7 @@ local function toggleAutoQuest()
 	
 	if getgenv().togglequest == true then
 		while getgenv().togglequest do
-			wait(2)
+			wait(5)
 			vim:SendMouseButtonEvent(guiPosition.X+50,guiPosition.Y+70,0,true,game,0) -- click okay
 			vim:SendMouseButtonEvent(guiPosition.X+50,guiPosition.Y+70,0,false,game,0)
 		end
