@@ -197,21 +197,27 @@ local function toggleAutoFarm()
 	
 	getgenv().togglefarm = true
 	
-	if getgenv().togglefarm == true then
-	for i,v in next, Fiends do
-		_G.fiend = v
-		for _, fieend in pairs(game.Workspace["Living"]:GetChildren()) do
-			if fieend:IsA("Model") and fieend.Name == _G.fiend then
-				if fieend.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
-					repeat
-						wait()
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = fieend.HumanoidRootPart.CFrame * CFrame.new(0, 0, 9) --* CFrame.Angles(math.rad(90),0,0)
-					until fieend.Humanoid.Health <= 0 or getgenv().togglefarm == false
+	coroutine.wrap(function()
+	while wait() do
+		if getgenv().togglefarm == true then
+			pcall(function()
+				for i,v in next, Fiends do
+					_G.fiend = v
+					for _, fieend in pairs(game.Workspace["Living"]:GetChildren()) do
+						if fieend:IsA("Model") and fieend.Name == _G.fiend then
+							if fieend.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+							repeat
+								wait()
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = fieend.HumanoidRootPart.CFrame * CFrame.new(0, 0, 9) --* CFrame.Angles(math.rad(90),0,0)
+							until fieend.Humanoid.Health <= 0 or getgenv().togglefarm == false
+							end
+						end
+					end
 				end
-			end
+			end)
 		end
 	end
-	end
+end)()
 end
 
 -- TP section
@@ -385,8 +391,24 @@ local SkillThreeToggle = FarmTab:CreateToggle({
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
 -- Misc section
-local PizzaSection = MiscTab:CreateSection("Misc")
+local GameMiscSection = local MiscSection = MiscTab:CreateSection("Extra game things")
+local MapTeleportGUI = Tab:CreateToggle({
+   Name = "Open Map Teleport GUI",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if Value == true then
+	game:GetService("Players").LocalPlayer.PlayerGui.MapTeleportGUI.Enabled = true
+   end
+   if Value == false then
+	game:GetService("Players").LocalPlayer.PlayerGui.MapTeleportGUI.Enabled = false
+   end
+   end,
+})
 
+local MiscSection = MiscTab:CreateSection("Misc")
 local DarkDex = MiscTab:CreateButton({
    Name = "Load DarkDex",
    Callback = function()
