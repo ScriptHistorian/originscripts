@@ -403,6 +403,14 @@ local RemoteSpy = MiscTab:CreateButton({
    end,
 })
 
+local InfiniteYield = MiscTab:CreateButton({
+   Name = "Load InfiniteYield",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
 local printCframe = MiscTab:CreateButton({
    Name = "Copy player's current CFrame",
    Callback = function()
