@@ -175,6 +175,212 @@ local TPlocseven = PizzaTab:CreateButton({
 ----------------------------------------
 
 
+------------ // FARM TAB \\ ------------
+local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
+
+local function toggleAutoPunch()
+	_G.punchloop = true
+	while _G.punchloop do
+        wait(0.5)
+		game:GetService("ReplicatedStorage").events.remote:FireServer("NormalAttack")
+	end
+end
+
+local function toggleAutoFarm()
+	local Fiends = {
+    "Imposter Fiend",
+	"Mantis Shrimp Fiend",
+	"Beetle Fiend",
+	"Ant Fiend",
+	"Cricket Fiend"
+	}
+	
+	getgenv().togglefarm = true
+	
+	if getgenv().togglefarm == true then
+	for i,v in next, Fiends do
+		_G.fiend = v
+		for _, fieend in pairs(game.Workspace["Living"]:GetChildren()) do
+			if fieend:IsA("Model") and fieend.Name == _G.fiend then
+				if fieend.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+					repeat
+						wait()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = fieend.HumanoidRootPart.CFrame * CFrame.new(0, 0, 9) --* CFrame.Angles(math.rad(90),0,0)
+					until fieend.Humanoid.Health <= 0 or getgenv().togglefarm == false
+				end
+			end
+		end
+	end
+	end
+end
+
+-- TP section
+local autoFarmSection = FarmTab:CreateSection("Quest / Auto Farm")
+local TPFarm = FarmTab:CreateButton({
+   Name = "TP to quest guy",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-635.958801, 449.52536, -426.84668, 0.386709094, -0, -0.922201872, 0, 1, -0, 0.922201872, 0, 0.386709094)
+   end,
+})
+
+local autoFarmToggle = FarmTab:CreateToggle({
+   Name = "Toggle Auto Farm",
+   CurrentValue = false,
+   Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(FarmValue)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if FarmValue == true then
+			toggleAutoFarm()
+   end
+   
+   if FarmValue == false then
+			getgenv().togglefarm = false
+   end
+   end,
+})
+
+-- Auto Punch section
+
+local autoPunchSection = FarmTab:CreateSection("Auto Punch")
+
+local autoPunchToggle = FarmTab:CreateToggle({
+   Name = "Toggle Auto Punch",
+   CurrentValue = false,
+   Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(PunchValue)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if PunchValue == true then
+			toggleAutoPunch()
+   end
+   
+   if PunchValue == false then
+			_G.punchloop = false
+   end
+   end,
+})
+
+-- Auto skills section
+_G.skillone = ""
+_G.skilltwo = ""
+_G.skillthree = ""
+
+local autoSkillOneSection = FarmTab:CreateSection("Auto Skill 1")
+
+local SkillOneInput = FarmTab:CreateInput({
+   Name = "Input Skill One",
+   PlaceholderText = "...",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+   -- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   _G.skillone = Text
+   end,
+})
+
+local SkillOneToggle = FarmTab:CreateToggle({
+   Name = "Toggle Skill One",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if Value == true then
+       toggleskillone = true
+       wait(0.5)
+       if toggleskillone == true then
+           while toggleskillone do
+               wait(0.3)
+               game:GetService("ReplicatedStorage").events.toolremote:FireServer(_G.skillone)
+           end
+       end
+   end
+   if Value == false then
+       wait(0.3)
+       toggleskillone = false
+   end
+   end,
+})
+
+local autoSkillTwoSection = FarmTab:CreateSection("Auto Skill 2")
+
+local SkillTwoInput = FarmTab:CreateInput({
+   Name = "Input Skill Two",
+   PlaceholderText = "...",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+   -- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   _G.skilltwo = Text
+   end,
+})
+
+local SkillTwoToggle = FarmTab:CreateToggle({
+   Name = "Toggle Skill Two",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if Value == true then
+       toggleskilltwo = true
+       wait(0.5)
+       if toggleskilltwo == true then
+           while toggleskilltwo do
+               wait(0.3)
+               game:GetService("ReplicatedStorage").events.toolremote:FireServer(_G.skilltwo)
+           end
+       end
+   end
+   if Value == false then
+       wait(0.3)
+       toggleskilltwo = false
+   end
+   end,
+})
+
+local autoSkillThreeSection = FarmTab:CreateSection("Auto Skill 3")
+
+local SkillThreeInput = FarmTab:CreateInput({
+   Name = "Input Skill Three",
+   PlaceholderText = "...",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+   -- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   _G.skillthree = Text
+   end,
+})
+
+local SkillThreeToggle = FarmTab:CreateToggle({
+   Name = "Toggle Skill Three",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if Value == true then
+       toggleskillthree = true
+       wait(0.5)
+       if toggleskillthree == true then
+           while toggleskillthree do
+               wait(0.3)
+               game:GetService("ReplicatedStorage").events.toolremote:FireServer(_G.skillthree)
+           end
+       end
+   end
+   if Value == false then
+       wait(0.3)
+       toggleskillthree = false
+   end
+   end,
+})
+
+----------------------------------------
+
+
 ------------ // MISC TAB \\ ------------
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
@@ -213,3 +419,5 @@ local Destroy = MiscTab:CreateButton({
    end,
 })
 ----------------------------------------
+
+print("Successfully executed Cikgu Jong's script!")
