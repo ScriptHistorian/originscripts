@@ -391,7 +391,7 @@ local SkillThreeToggle = FarmTab:CreateToggle({
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
 -- Misc section
-local GameMiscSection = local MiscSection = MiscTab:CreateSection("Extra game things")
+local GameMiscSection = MiscTab:CreateSection("Extra game things")
 local MapTeleportGUI = MiscTab:CreateToggle({
    Name = "Open Map Teleport GUI",
    CurrentValue = false,
