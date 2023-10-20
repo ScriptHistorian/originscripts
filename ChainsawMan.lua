@@ -186,6 +186,22 @@ local function toggleAutoPunch()
 	end
 end
 
+local function toggleAutoQuest()
+	local guiPosition = game:GetService("Players").LocalPlayer.PlayerGui.Quest.Completed.Yes.AbsolutePosition
+	local vim = game.VirtualInputManager
+	
+	getgenv().togglequest = true
+	
+	if getgenv().togglequest == true then
+		while getgenv().togglequest do
+			wait(2)
+			vim:SendMouseButtonEvent(guiPosition.X+50,guiPosition.Y+70,0,true,game,0) -- click okay
+			vim:SendMouseButtonEvent(guiPosition.X+50,guiPosition.Y+70,0,false,game,0)
+		end
+	end
+		
+end
+
 local function toggleAutoFarm()
 	local Fiends = {
     "Imposter Fiend",
@@ -244,6 +260,24 @@ local autoFarmToggle = FarmTab:CreateToggle({
    if FarmValue == false then
 			getgenv().togglefarm = false
    end
+   end,
+})
+
+local autoQuestToggle = FarmTab:CreateToggle({
+   Name = "Toggle Auto Click Accept Quest (Get quest first)",
+   CurrentValue = false,
+   Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(AcceptValue)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if AcceptValue == true then
+		toggleAutoQuest()
+   end
+   
+   if AcceptValue == false then
+		getgenv().togglequest = false
+   end
+   
    end,
 })
 
