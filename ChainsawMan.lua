@@ -392,7 +392,7 @@ local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
 -- Misc section
 local GameMiscSection = local MiscSection = MiscTab:CreateSection("Extra game things")
-local MapTeleportGUI = Tab:CreateToggle({
+local MapTeleportGUI = MiscTab:CreateToggle({
    Name = "Open Map Teleport GUI",
    CurrentValue = false,
    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
