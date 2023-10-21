@@ -186,6 +186,14 @@ local function toggleAutoPunch()
 	end
 end
 
+local function toggleESkill()
+	_G.eloop = true
+	while _G.eloop do
+        wait(0.5)
+		game:GetService("ReplicatedStorage").events.remote:FireServer("Skill1")
+	end
+end
+
 local function toggleAutoQuest()
 	local guiPosition = game:GetService("Players").LocalPlayer.PlayerGui.Quest.Completed.Yes.AbsolutePosition
 	local vim = game.VirtualInputManager
@@ -298,6 +306,23 @@ local autoPunchToggle = FarmTab:CreateToggle({
    
    if PunchValue == false then
 			_G.punchloop = false
+   end
+   end,
+})
+
+local autoEToggle = FarmTab:CreateToggle({
+   Name = "Toggle Katana/Axe/Knife Skill",
+   CurrentValue = false,
+   Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(eValue)
+   -- The function that takes place when the toggle is pressed
+   -- The variable (Value) is a boolean on whether the toggle is true or false
+   if eValue == true then
+			toggleESkill()
+   end
+   
+   if eValue == false then
+			_G.eloop = false
    end
    end,
 })
@@ -483,5 +508,16 @@ local Destroy = MiscTab:CreateButton({
    end,
 })
 ----------------------------------------
+
+------------ // CREDITS TAB \\ ------------
+local CreditsTab = Window:CreateTab("Credits", 4483362458) -- Title, Image
+local CreditsSection = CreditsTab:CreateSection("Credits")
+local Label = CreditsTab:CreateLabel("Maker: emporeo#0")
+local Label2 = CreditsTab:CreateLabel("Contributor: TheDudeGuy#0")
+
+
+
+-------------------------------------------
+
 
 print("Successfully executed Cikgu Jong's script!")
