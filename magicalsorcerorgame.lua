@@ -382,7 +382,7 @@ local function instantsukuna()
 end
 
 local SukunaToggle = VesselTab:CreateToggle({
-   Name = "Instant Sukuna",
+   Name = "Unlock Sukuna Vessel",
    CurrentValue = false,
    Flag = "Toggle1",
    Callback = function(Value)
@@ -394,6 +394,68 @@ local SukunaToggle = VesselTab:CreateToggle({
 		if Value == false then
 			getgenv().sukuna = false
 		end
+   end,
+})
+
+local KashimoVesselSection = VesselTab:CreateSection("Kashimo Vessel (Temporary)")
+
+local function kashimounlock()
+	local plr = game:GetService("Players").LocalPlayer
+	local workplr = game.Workspace[plr.Name]
+	local kashimoGUI = plr.PlayerGui.Mastery.Frame.KashimoVessel
+	
+	if getgenv().kashimo == true then
+		while getgenv().kashimo do
+			wait(0.5)
+			if workplr.Has_KashimoVessel.Value == nil or workplr.Has_KashimoVessel.Value == "" then
+				for i, v in pairs(workplr:GetChildren()) do
+					if v:IsA("StringValue") then
+						if v.Name == "Has_KashimoVessel" then
+							v.Value = "Yes"
+						end
+						if v.Name == "Z" then
+							v.Value = "ThunderGod"
+						end
+						if v.Name == "X" then
+							v.Value = "ThunderStrike"
+						end
+						if v.Name == "C" then
+							v.Value = "ThunderFlash"
+						end
+					end
+				end
+			if kashimoGUI.Visible == false then
+				kashimoGUI.Visible = true
+			end
+			elseif workplr.Has_KashimoVessel.Value == "Yes" or workplr.Has_KashimoVessel.Value ~= nil or workplr.Has_KashimoVessel.Value ~= "" then
+				print("Kashimo vessel is already enabled.")
+			end
+		end
+	end
+end
+
+--[[local KashimoToggle = VesselTab:CreateToggle({
+   Name = "Unlock Kashimo Vessel (Replaces Z, X, C skills)",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+		if Value == true then
+			getgenv().kashimo = true
+			wait(0.3)
+			kashimounlock()
+		end
+		if Value == false then
+			getgenv().kashimo = false
+		end
+   end,
+}) ]]--
+
+local KashimoButton = VesselTab:CreateButton({
+   Name = "Unlock Kashimo Vessel (Replaces Z, X, C skills)",
+   Callback = function()
+			getgenv().kashimo = true
+			wait(0.3)
+			kashimounlock()
    end,
 })
 
