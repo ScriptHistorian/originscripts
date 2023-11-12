@@ -1,5 +1,3 @@
--- updated v4
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local function getexploit()
@@ -426,7 +424,7 @@ local function RareHopperFarm()
 							print("Found ", v.Name)
 							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
 							wait(0.3)
-							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game) -- change this to keyboard button for pickup
+							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game)
 						end
 					end
 				end
@@ -440,7 +438,7 @@ end
 local OrbHopperToggle = ItemsTab:CreateToggle({
    Name = "Farm Orbs (Server hop if there's not any)",
    CurrentValue = false,
-   Flag = "orbhopper",
+   Flag = "Toggle1",
    Callback = function(Value)
 		if Value == true then
 			getgenv().OrbHopper = true
@@ -456,7 +454,7 @@ local OrbHopperToggle = ItemsTab:CreateToggle({
 local KashimoScrollToggle = ItemsTab:CreateToggle({
    Name = "Farm Rare Items (Server hop if there's not any)",
    CurrentValue = false,
-   Flag = "rareitemhopper",
+   Flag = "Toggle1",
    Callback = function(Value)
 		if Value == true then
 			getgenv().RareHopper = true
