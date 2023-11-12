@@ -293,6 +293,7 @@ local function orbfarm()
 
 	if getgenv().Orb == true then
 		while getgenv().Orb do
+			wait(0.1)
 			for _,b in next,getgenv().Items do
 				for i,v in pairs(game.Workspace:GetDescendants()) do
 					if v:IsA("Part") and v.Name == b then
@@ -317,6 +318,7 @@ local function rareItemFarm()
 
 	if getgenv().Rare == true then
 		while getgenv().Rare do
+			wait(0.1)
 			for _,b in next,getgenv().Items do
 				for i,v in pairs(game.Workspace:GetDescendants()) do
 					if v.Name == "Finger" or v.Name == "Meshes/YutaRingy_Torus" or v.Name == "Kashimo_Scroll" then
