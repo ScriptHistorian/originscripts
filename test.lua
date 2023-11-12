@@ -319,13 +319,11 @@ local function rareItemFarm()
 	if getgenv().Rare == true then
 		while getgenv().Rare do
 			wait(0.1)
-			for _,b in next,getgenv().Items do
-				for i,v in pairs(game.Workspace:GetDescendants()) do
-					if v.Name == "Finger" or v.Name == "Meshes/YutaRingy_Torus" or v.Name == "Kashimo_Scroll" then
+			for i,v in pairs(game.Workspace:GetDescendants()) do
+				if v.Name == "Finger" or v.Name == "Meshes/YutaRingy_Torus" or v.Name == "Kashimo_Scroll" then
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
 						wait(0.1)
 						vim:SendKeyEvent(true,Enum.KeyCode.T,false,game)
-					end
 				end
 			end
 		end
