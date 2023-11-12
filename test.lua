@@ -385,7 +385,7 @@ local function orbHopperFarm()
 		"MiscOrb"
 	}
 	
-	if getgenv().OrbHopper = true then
+	if getgenv().OrbHopper == true then
 		while getgenv().OrbHopper do
 		wait(0.1)
 			if game.Workspace:FindFirstChild(OrbHopperItems) then
@@ -414,7 +414,7 @@ local function RareHopperFarm()
 		end
 	end
 	
-	if getgenv().RareHopper = true then
+	if getgenv().RareHopper == true then
 		while getgenv().RareHopper do
 		wait(0.1)
 			if game.Workspace:FindFirstChild("Vessel_Finger") then
@@ -438,7 +438,7 @@ end
 local OrbHopperToggle = ItemsTab:CreateToggle({
    Name = "Farm Orbs (Server hop if there's not any)",
    CurrentValue = false,
-   Flag = "Toggle1",
+   Flag = "orbhopper",
    Callback = function(Value)
 		if Value == true then
 			getgenv().OrbHopper = true
@@ -451,7 +451,7 @@ local OrbHopperToggle = ItemsTab:CreateToggle({
    end,
 })
 
-local KashimoScrollToggle = ItemsTab:CreateToggle({
+local RareHopperToggle = ItemsTab:CreateToggle({
    Name = "Farm Rare Items (Server hop if there's not any)",
    CurrentValue = false,
    Flag = "Toggle1",
