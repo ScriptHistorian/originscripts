@@ -1,4 +1,4 @@
--- updated
+-- updated v4
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -372,7 +372,7 @@ local function serverHop()
 	tpservice:Teleport(game.PlaceId, plr)
 end
 
-local function kashimoScrollFarm()
+local function orbHopperFarm()
 	local vim = game:GetService("VirtualInputManager")
 	
 	for i, v in pairs(workspace:GetDescendants()) do
@@ -381,39 +381,90 @@ local function kashimoScrollFarm()
 		end
 	end
 	
-	getgenv().Item = "Kashimo_Scroll"
+	getgenv().OrbHopperItems = {
+		"ClanSpinOrb",
+		"CurseSpinOrb",
+		"MiscOrb"
+	}
 	
-	if getgenv().KashimoScroll == true then
-		while getgenv().KashimoScroll do
-				wait(0.1)
-				if game.Workspace["Game_FX"]:FindFirstChild(getgenv().Item) then
-					for i,v in pairs(game.Workspace["Game_FX"].getgenv().Item:GetChildren()) do
-						if v:IsA("Part") and v.Name == getgenv().Item then
+	if getgenv().OrbHopper = true then
+		while getgenv().OrbHopper do
+		wait(0.1)
+			if game.Workspace:FindFirstChild(OrbHopperItems) then
+				for _,b in next,getgenv().OrbHopperItems do
+					for i,v in pairs(game.Workspace:GetDescendants()) do
+						if v:IsA("Part") and v.Name == b then
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
+							wait(0.1)
+							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game)
+						end
+					end
+				end
+			else
+			serverHop()
+			end
+		end
+	end
+end
+
+local function RareHopperFarm()
+	local vim = game:GetService("VirtualInputManager")
+	
+	for i, v in pairs(workspace:GetDescendants()) do
+		if v.ClassName == "ProximityPrompt" then
+			v.HoldDuration = 0
+		end
+	end
+	
+	if getgenv().RareHopper = true then
+		while getgenv().RareHopper do
+		wait(0.1)
+			if game.Workspace:FindFirstChild("Vessel_Finger") then
+				for i,v in pairs(game.Workspace:GetDescendants()) do
+					if v:IsA("MeshPart") then 
+						if v.Name == "Finger" or v.Name == "Meshes/YutaRingy_Torus" or v.Name == "Kashimo_Scroll" then
 							print("Found ", v.Name)
 							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
 							wait(0.3)
 							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game) -- change this to keyboard button for pickup
 						end
 					end
-				else
-				serverHop()
+				end
+			else 
+			serverHop()
 			end
 		end
 	end
 end
 
-local KashimoScrollToggle = ItemsTab:CreateToggle({
-   Name = "Farm Kashimo Scroll (Server hop if there's not any)",
+local OrbHopperToggle = ItemsTab:CreateToggle({
+   Name = "Farm Orbs (Server hop if there's not any)",
    CurrentValue = false,
-   Flag = "scroll",
+   Flag = "orbhopper",
    Callback = function(Value)
 		if Value == true then
-			getgenv().KashimoScroll = true
+			getgenv().OrbHopper = true
 			wait(0.5)
-			kashimoScrollFarm()
+			orbHopperFarm()
 		end
 		if Value == false then
-			getgenv().KashimoScroll = false
+			getgenv().OrbHopper = false
+		end
+   end,
+})
+
+local KashimoScrollToggle = ItemsTab:CreateToggle({
+   Name = "Farm Rare Items (Server hop if there's not any)",
+   CurrentValue = false,
+   Flag = "rareitemhopper",
+   Callback = function(Value)
+		if Value == true then
+			getgenv().RareHopper = true
+			wait(0.5)
+			RareHopperFarm()
+		end
+		if Value == false then
+			getgenv().RareHopper = false
 		end
    end,
 })
