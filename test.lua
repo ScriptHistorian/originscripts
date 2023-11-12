@@ -1,3 +1,5 @@
+-- updated
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local function getexploit()
@@ -293,12 +295,12 @@ local function orbfarm()
 
 	if getgenv().Orb == true then
 		while getgenv().Orb do
-			wait(0.1)
+			wait(0.5)
 			for _,b in next,getgenv().Items do
 				for i,v in pairs(game.Workspace:GetDescendants()) do
 					if v:IsA("Part") and v.Name == b then
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
-						wait(0.1)
+						wait(0.3)
 						vim:SendKeyEvent(true,Enum.KeyCode.T,false,game)
 					end
 				end
@@ -318,11 +320,11 @@ local function rareItemFarm()
 
 	if getgenv().Rare == true then
 		while getgenv().Rare do
-			wait(0.1)
+			wait(0.5)
 			for i,v in pairs(game.Workspace:GetDescendants()) do
 				if v.Name == "Finger" or v.Name == "Meshes/YutaRingy_Torus" or v.Name == "Kashimo_Scroll" then
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
-						wait(0.1)
+						wait(0.3)
 						vim:SendKeyEvent(true,Enum.KeyCode.T,false,game)
 				end
 			end
@@ -400,66 +402,6 @@ local function kashimoScrollFarm()
 	end
 end
 
-local function VesselFingerFarm()
-	local vim = game:GetService("VirtualInputManager")
-	
-	for i, v in pairs(workspace:GetDescendants()) do
-		if v.ClassName == "ProximityPrompt" then
-			v.HoldDuration = 0
-		end
-	end
-	
-	getgenv().Item = "Vessel_Finger"
-	
-	if getgenv().VesselFinger == true then
-		while getgenv().VesselFinger do
-				wait(0.1)
-				if game.Workspace["Game_FX"]:FindFirstChild(getgenv().Item) then
-					for i,v in pairs(game.Workspace["Game_FX"].getgenv().Item:GetChildren()) do
-						if v:IsA("Part") and v.Name == getgenv().Item then
-							print("Found ", v.Name)
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
-							wait(0.3)
-							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game) -- change this to keyboard button for pickup
-						end
-					end
-				else
-				serverHop()
-			end
-		end
-	end
-end
-
-local function YutaRingFarm()
-	local vim = game:GetService("VirtualInputManager")
-	
-	for i, v in pairs(workspace:GetDescendants()) do
-		if v.ClassName == "ProximityPrompt" then
-			v.HoldDuration = 0
-		end
-	end
-	
-	getgenv().Item = "Engagement_Ring"
-	
-	if getgenv().YutaRing == true then
-		while getgenv().YutaRing do
-				wait(0.1)
-				if game.Workspace["Game_FX"]:FindFirstChild(getgenv().Item) then
-					for i,v in pairs(game.Workspace["Game_FX"].getgenv().Item:GetChildren()) do
-						if v:IsA("Part") and v.Name == getgenv().Item then
-							print("Found ", v.Name)
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame - Vector3.new(0, 0, 0)
-							wait(0.3)
-							vim:SendKeyEvent(true,Enum.KeyCode.T,false,game) -- change this to keyboard button for pickup
-						end
-					end
-				else
-				serverHop()
-			end
-		end
-	end
-end
-
 local KashimoScrollToggle = ItemsTab:CreateToggle({
    Name = "Farm Kashimo Scroll (Server hop if there's not any)",
    CurrentValue = false,
@@ -472,38 +414,6 @@ local KashimoScrollToggle = ItemsTab:CreateToggle({
 		end
 		if Value == false then
 			getgenv().KashimoScroll = false
-		end
-   end,
-})
-
-local SukunaHopperToggle = ItemsTab:CreateToggle({
-   Name = "Farm Sukuna Finger (Server hop if there's not any)",
-   CurrentValue = false,
-   Flag = "finger",
-   Callback = function(Value)
-		if Value == true then
-			getgenv().VesselFinger = true
-			wait(0.5)
-			VesselFingerFarm()
-		end
-		if Value == false then
-			getgenv().VesselFinger = false
-		end
-   end,
-})
-
-local YutaRingToggle = ItemsTab:CreateToggle({
-   Name = "Farm Yuta Ring (Server hop if there's not any)",
-   CurrentValue = false,
-   Flag = "ring",
-   Callback = function(Value)
-		if Value == true then
-			getgenv().YutaRing = true
-			wait(0.5)
-			YutaRingFarm()
-		end
-		if Value == false then
-			getgenv().YutaRing = false
 		end
    end,
 })
